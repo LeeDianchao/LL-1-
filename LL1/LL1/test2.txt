@@ -1,0 +1,6 @@
+1:c d
+2:E S C
+E -> S
+S -> C C
+C -> c C | d
+3:  c d d

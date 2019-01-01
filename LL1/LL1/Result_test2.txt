@@ -1,0 +1,26 @@
+First集:
+first[E]: c  d  
+first[S]: c  d  
+first[C]: c  d  
+
+Follow集：
+follow [E]: $  
+follow [S]: $  
+follow [C]: $  c  d  
+
+预测分析表：
+              $              c              d
+E          Error          E->S           E->S 
+S          Error        S->C C         S->C C 
+C          Error        C->c C           C->d 
+
+              分析栈                    剩余输入串              Action
+                E $                       c d d $                E->S 
+                S $                       c d d $              S->C C 
+              C C $                       c d d $              C->c C 
+            c C C $                       c d d $           c Terminal
+              C C $                         d d $                C->d 
+              d C $                         d d $           d Terminal
+                C $                           d $                C->d 
+                d $                           d $           d Terminal
+                  $                             $          Accepted...

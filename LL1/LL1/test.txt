@@ -1,0 +1,10 @@
+1: < > int + *   
+2: E A T B F
+
+E-> T A
+A -> + T A|@
+T -> F  B
+B-> * F B |@
+F-> < E >|int
+
+3:     int + int * int

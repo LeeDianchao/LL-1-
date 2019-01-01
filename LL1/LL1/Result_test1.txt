@@ -1,0 +1,36 @@
+First集:
+first[S]: !  #  %  
+first[T]: @  a  b  
+first[U]: #  @  
+
+Follow集：
+follow [S]: !  #  $  
+follow [T]: !  #  $  
+follow [U]: !  
+
+预测分析表：
+              $              a              b              #              %              !
+S          Error          Error          Error        S->U !       S->% a T         S->U ! 
+T          T->@         T->a S       T->b a T           T->@           Error          T->@ 
+U          Error          Error          Error    U-># a T U           Error          U->@ 
+
+              分析栈                    剩余输入串              Action
+                S $         # a b a a % a b a ! $              S->U ! 
+              U ! $         # a b a a % a b a ! $          U-># a T U 
+        # a T U ! $         # a b a a % a b a ! $           # Terminal
+          a T U ! $           a b a a % a b a ! $           a Terminal
+            T U ! $             b a a % a b a ! $            T->b a T 
+        b a T U ! $             b a a % a b a ! $           b Terminal
+          a T U ! $               a a % a b a ! $           a Terminal
+            T U ! $                 a % a b a ! $              T->a S 
+          a S U ! $                 a % a b a ! $           a Terminal
+            S U ! $                   % a b a ! $            S->% a T 
+        % a T U ! $                   % a b a ! $           % Terminal
+          a T U ! $                     a b a ! $           a Terminal
+            T U ! $                       b a ! $            T->b a T 
+        b a T U ! $                       b a ! $           b Terminal
+          a T U ! $                         a ! $           a Terminal
+            T U ! $                           ! $                T->@ 
+              U ! $                           ! $                U->@ 
+                ! $                           ! $           ! Terminal
+                  $                             $          Accepted...

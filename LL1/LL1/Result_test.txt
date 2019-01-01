@@ -1,0 +1,40 @@
+First集:
+first[E]: <  int  
+first[A]: +  @  
+first[T]: <  int  
+first[B]: *  @  
+first[F]: <  int  
+
+Follow集：
+follow [E]: $  >  
+follow [A]: $  >  
+follow [T]: $  +  >  
+follow [B]: $  +  >  
+follow [F]: $  *  +  >  
+
+预测分析表：
+              $              <              >            int              +              *
+E          Error        E->T A           Error        E->T A           Error          Error
+A          A->@           Error          A->@           Error      A->+ T A           Error
+T          Error        T->F B           Error        T->F B           Error          Error
+B          B->@           Error          B->@           Error          B->@       B->* F B 
+F          Error      F->< E >           Error        F->int           Error          Error
+
+              分析栈                    剩余输入串              Action
+                E $             int + int * int $              E->T A 
+              T A $             int + int * int $              T->F B 
+            F B A $             int + int * int $              F->int 
+          int B A $             int + int * int $         int Terminal
+              B A $                 + int * int $                B->@ 
+                A $                 + int * int $            A->+ T A 
+            + T A $                 + int * int $           + Terminal
+              T A $                   int * int $              T->F B 
+            F B A $                   int * int $              F->int 
+          int B A $                   int * int $         int Terminal
+              B A $                       * int $            B->* F B 
+          * F B A $                       * int $           * Terminal
+            F B A $                         int $              F->int 
+          int B A $                         int $         int Terminal
+              B A $                             $                B->@ 
+                A $                             $                A->@ 
+                  $                             $          Accepted...
